@@ -4,4 +4,4 @@ node js, express, graphql
 # run it
 - npm install
 - npm start
-- go to http://localhsot:4000/graphql
+- go to http://localhost:4000/graphql
