@@ -1,12 +1,28 @@
-import { userQueries, userMutations } from './user';
+const albumsResolver = require('./albums');
+const commentsResolver = require('./comments');
+const photosResolver = require('./photos');
+const postsResolver = require('./posts');
+const todosResolver = require('./todos');
+const usersResolver = require('./users');
 
 const resolvers = {
   Query: {
-    ...userQueries,
+    ...albumsResolver.Query,
+    ...commentsResolver.Query,
+    ...photosResolver.Query,
+    ...postsResolver.Query,
+    ...todosResolver.Query,
+    ...usersResolver.Query,
   },
+
   Mutation: {
-    ...userMutations,
+    ...albumsResolver.Mutation,
+    ...commentsResolver.Mutation,
+    ...photosResolver.Mutation,
+    ...postsResolver.Mutation,
+    ...todosResolver.Mutation,
+    ...usersResolver.Mutation,
   },
 };
 
-export default resolvers;
+module.exports = resolvers;

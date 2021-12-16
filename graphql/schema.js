@@ -1,21 +1,16 @@
-import { join } from 'path';
-import { readdirSync, readFileSync } from 'fs';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import resolvers from './resolvers';
+const { join } = require('path');
+const { loadSchemaSync } = require('@graphql-tools/load');
+const { GraphQLFileLoader } = require('@graphql-tools/graphql-file-loader');
+const { addResolversToSchema } = require('@graphql-tools/schema');
 
-const gqlFiles = readdirSync(join(__dirname, './typedefs'));
-
-let typeDefs = '';
-
-gqlFiles.forEach((file) => {
-  typeDefs += readFileSync(join(__dirname, './typedefs', file), {
-    encoding: 'utf8',
-  });
+const resolvers = require('./resolvers');
+const schema = loadSchemaSync(join(__dirname, './schema/schema.graphql'), {
+  loaders: [new GraphQLFileLoader()],
 });
 
-const schema = makeExecutableSchema({
-  typeDefs,
+const schemaWithResolvers = addResolversToSchema({
+  schema,
   resolvers,
 });
 
-export default schema;
+module.exports = schemaWithResolvers;
